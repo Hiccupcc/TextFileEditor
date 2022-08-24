@@ -6,7 +6,7 @@ int Program = 1;
 while (Program == 1) // So the program doesn't close if other letters have not been pressed
 {
   Console.Clear(); 
-  Console.WriteLine("A) Find how many times a word has been repeated in a sentence/paragraph. \nB) Replace existing words with new ones. \nC) Merge two text files together.");
+  Console.WriteLine("A) Find how many times a word has been repeated in a sentence/paragraph. \nB) Replace existing words with new ones. \nC) Merge two text files together. \nD) Read content from a text file.");
   if (Console.ReadKey(true).Key == ConsoleKey.A) // calls the method once A has been pressed
   {
        Console.Clear(); 
@@ -22,12 +22,32 @@ while (Program == 1) // So the program doesn't close if other letters have not b
     Console.Clear();
     MergeFiles(); 
   }
+  else if (Console.ReadKey(true).Key == ConsoleKey.D)
+  {
+    Console.Clear(); 
+    ReadFiles(); 
+  }
   else // to avoid Console.WriteLine lines when other letters are pressed 
   {
      Console.Clear();
   }
-
 }
+
+
+static void ReadFiles()
+{
+  Console.WriteLine("Enter the path of the file you want to read text from.");
+  Console.ForegroundColor = ConsoleColor.Red;
+      Console.WriteLine(@"Example: c:\temp\MyTest.txt");
+      Console.ResetColor(); 
+  string? ChosenFile = Console.ReadLine(); 
+  string FileContent = System.IO.File.ReadAllText(ChosenFile);
+  Console.Clear();  
+  Console.WriteLine(FileContent); 
+  Console.ReadLine();
+}
+
+
 static void MergeFiles()
 {
   Console.WriteLine("Enter the path of the file you want to copy text from.");
@@ -59,6 +79,8 @@ static void MergeFiles()
       return; 
     }
 }
+
+
 static void ChangeWord() //changes a word 
 {
   Console.Write("Type the word that will be changed: ");
@@ -98,6 +120,8 @@ static void ChangeWord() //changes a word
    ChangeWord(); 
   }
 }
+
+
 static void RepeatedWord() //checks the amount of times a word has been repeated for. 
 { 
 Console.Write("Type the word: ");
