@@ -39,12 +39,21 @@ static void ReadFiles()
   Console.WriteLine("Enter the path of the file you want to read text from.");
   Console.ForegroundColor = ConsoleColor.Red;
       Console.WriteLine(@"Example: c:\temp\MyTest.txt");
-      Console.ResetColor(); 
+      Console.ResetColor();
+  try
+  { 
   string? ChosenFile = Console.ReadLine(); 
   string FileContent = System.IO.File.ReadAllText(ChosenFile);
   Console.Clear();  
   Console.WriteLine(FileContent); 
   Console.ReadLine();
+  }
+  catch (Exception e2)
+  {
+    Console.WriteLine("Invalid path or non-existent file.");
+    Console.ReadKey(); 
+    return;
+  }
 }
 
 
@@ -54,17 +63,19 @@ static void MergeFiles()
   Console.ForegroundColor = ConsoleColor.Red;
       Console.WriteLine(@"Example: c:\temp\MyTest.txt");
       Console.ResetColor(); 
-  string? FirstPath = Console.ReadLine(); 
-  string FirstPathText = System.IO.File.ReadAllText(FirstPath);
-  Console.WriteLine("Enter the path of the file you want to paste text to.");
-  string? SecondPath = Console.ReadLine(); 
-  string SecondPathText = System.IO.File.ReadAllText(SecondPath); 
-  Console.WriteLine(SecondPathText + FirstPathText); 
-  Console.ReadKey();
-  Console.Write("Would you like to save this as a new textfile? Y/N");
-    if (Console.ReadKey(true).Key == ConsoleKey.Y)
-    {
-      Console.Clear(); 
+  try 
+   {
+   string? FirstPath = Console.ReadLine(); 
+   string FirstPathText = System.IO.File.ReadAllText(FirstPath);
+   Console.WriteLine("Enter the path of the file you want to paste text to.");
+   string? SecondPath = Console.ReadLine(); 
+   string SecondPathText = System.IO.File.ReadAllText(SecondPath); 
+   Console.WriteLine(SecondPathText + FirstPathText); 
+   Console.ReadKey();
+   Console.Write("Would you like to save this as a new textfile? Y/N");
+     if (Console.ReadKey(true).Key == ConsoleKey.Y)
+     {
+       Console.Clear(); 
       Console.WriteLine("Type the path where you want to save the text file. Please include the name you want it to be saved as");
       Console.ForegroundColor = ConsoleColor.Red;
       Console.WriteLine(@"Example: c:\temp\MyTest.txt");
@@ -78,6 +89,13 @@ static void MergeFiles()
     {
       return; 
     }
+   }
+    catch (Exception e)
+  {
+    Console.WriteLine("Invalid path or non-existent file.");
+    Console.ReadKey();
+    return;
+  } 
 }
 
 
