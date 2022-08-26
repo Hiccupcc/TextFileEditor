@@ -49,13 +49,19 @@ static void AccessFolder()
       var dir = new DirectoryInfo(SelectedDirectory);
       var DirectoryName = dir.Name;
       Console.WriteLine(DirectoryName+"\n");
-      
     }
+      string RootDirectory = Console.ReadLine(); 
+      Console.WriteLine("What would you like to do with " + RootDirectory + " ? \nA) Delete");
+      if (Console.ReadKey(true).Key == ConsoleKey.A)
+      {
+        System.IO.File.Delete(path + RootDirectory);
+        return;
+      }
     Console.ReadKey(); 
-  }
+   }
   catch (Exception e3)
   {
-    Console.WriteLine("Something went wrong.");
+    Console.WriteLine("Something went wrong." + "\n" + e3);
     Console.ReadKey();
     return; 
   }
