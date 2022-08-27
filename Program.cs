@@ -37,11 +37,12 @@ while (Program == 1) // So the program doesn't close if other letters have not b
       Console.WriteLine(SelectedDir + "\n");
   }
     string RootPath = Console.ReadLine();
-    Console.Clear(); 
+    Console.Clear();
       Console.WriteLine("What would you like to do with " + RootPath + "?");
-      Console.WriteLine("A)Access Folder\nB)Delete Folder (Has to be empty)");
+      Console.WriteLine("A) Access Folder\nB) Delete Folder (Has to be empty)");
    if (Console.ReadKey(true).Key == ConsoleKey.A)
    {
+    Console.Clear();
      AccessFolder(RootPath);
    }
    else if (Console.ReadKey(true).Key == ConsoleKey.B)
@@ -66,15 +67,22 @@ static void AccessFolder(string RootPath)
   string NextRoot = Console.ReadLine();
   Console.Clear(); 
   Console.WriteLine("What would you like to do with " + NextRoot + "?");
-  Console.WriteLine("A) Access Folder\nB)Delete Folder (Has to be empty)");
+  Console.WriteLine("A) Access Folder\nB) Delete Folder (Has to be empty)\nC) Go To Parent Folder");
   if (Console.ReadKey(true).Key == ConsoleKey.A)
   {
+    Console.Clear();
     AccessFolder(NextRoot);
   }
   else if (Console.ReadKey(true).Key == ConsoleKey.B)
   {
     System.IO.Directory.Delete(NextRoot);
 
+  }
+  else if (Console.ReadKey(true).Key == ConsoleKey.C)
+  {
+    string ParentDic = System.IO.Directory.GetParent(NextRoot).FullName; 
+    Console.Clear();
+    AccessFolder(ParentDic);
   }
 }
 
