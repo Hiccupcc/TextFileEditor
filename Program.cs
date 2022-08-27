@@ -28,44 +28,57 @@ while (Program == 1) // So the program doesn't close if other letters have not b
     ReadFiles(); 
   }
   else if (Console.ReadKey(true).Key == ConsoleKey.E)
-  {
+{
     Console.Clear();
-   AccessFolder();
+    Console.WriteLine("Enter path: ");
+    string Answer = Console.ReadLine();  
+     foreach (var SelectedDir in System.IO.Directory.GetDirectories(Answer))
+  {
+      Console.WriteLine(SelectedDir + "\n");
   }
+    string RootPath = Console.ReadLine();
+    Console.Clear(); 
+      Console.WriteLine("What would you like to do with " + RootPath + "?");
+      Console.WriteLine("A)Access Folder\nB)Delete Folder (Has to be empty)");
+   if (Console.ReadKey(true).Key == ConsoleKey.A)
+   {
+     AccessFolder(RootPath);
+   }
+   else if (Console.ReadKey(true).Key == ConsoleKey.B)
+      {
+       System.IO.Directory.Delete(RootPath);
+
+      } 
+         AccessFolder(RootPath); 
+}
   else // to avoid Console.WriteLine lines when other letters are pressed 
   {
      Console.Clear();
   }
 }
 
-static void AccessFolder()
+static void AccessFolder(string RootPath)
 {
-  try
+  foreach (var SelectedRoot in System.IO.Directory.GetDirectories(RootPath))
   {
-    Console.Write("Enter the path to your directory: ");
-    string path = Console.ReadLine(); 
-    foreach (var SelectedDirectory in System.IO.Directory.GetDirectories(path))
-    {
-      var dir = new DirectoryInfo(SelectedDirectory);
-      var DirectoryName = dir.Name;
-      Console.WriteLine(DirectoryName+"\n");
-    }
-      string RootDirectory = Console.ReadLine(); 
-      Console.WriteLine("What would you like to do with " + RootDirectory + " ? \nA) Delete");
-      if (Console.ReadKey(true).Key == ConsoleKey.A)
-      {
-        System.IO.File.Delete(path + RootDirectory);
-        return;
-      }
-    Console.ReadKey(); 
-   }
-  catch (Exception e3)
+    Console.WriteLine(SelectedRoot + "\n");
+  } 
+  string NextRoot = Console.ReadLine();
+  Console.Clear(); 
+  Console.WriteLine("What would you like to do with " + NextRoot + "?");
+  Console.WriteLine("A) Access Folder\nB)Delete Folder (Has to be empty)");
+  if (Console.ReadKey(true).Key == ConsoleKey.A)
   {
-    Console.WriteLine("Something went wrong." + "\n" + e3);
-    Console.ReadKey();
-    return; 
+    AccessFolder(NextRoot);
+  }
+  else if (Console.ReadKey(true).Key == ConsoleKey.B)
+  {
+    System.IO.Directory.Delete(NextRoot);
+
   }
 }
+
+
 
 static void ReadFiles()
 {
