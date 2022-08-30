@@ -36,9 +36,12 @@ while (Program == 1) // So the program doesn't close if other letters have not b
    {
         foreach (var SelectedDir in System.IO.Directory.GetDirectories(Answer))
     {
-       Console.WriteLine(SelectedDir + "\n");
+       string CapSelectedDir = (char.ToUpper(SelectedDir[0]) + SelectedDir.Substring(1));
+       Console.WriteLine(CapSelectedDir + "\n");
     }
      string RootPath = Console.ReadLine();
+     if (Directory.Exists(RootPath))
+  {
      Console.Clear();
        Console.WriteLine("What would you like to do with " + RootPath + "?");
        Console.WriteLine("A) Access Folder\nB) Delete Folder (Has to be empty)");
@@ -52,7 +55,11 @@ while (Program == 1) // So the program doesn't close if other letters have not b
        System.IO.Directory.Delete(RootPath);
 
       } 
-         AccessFolder(RootPath); 
+   }  else if (!Directory.Exists(RootPath))
+   {
+    Console.WriteLine(RootPath + " doesn't exist!");
+    Console.ReadKey(); 
+   }
   } else if (!Directory.Exists(Answer))
   {
     Console.WriteLine(Answer + " doesn't exist!");
@@ -70,16 +77,16 @@ static void AccessFolder(string RootPath)
 {
   try
  {  
+     
      foreach (var SelectedRoot  in System.IO.Directory.GetDirectories(RootPath))
-    { 
-     Console.WriteLine(SelectedRoot + "\n");
-    } 
+    {
+      Console.WriteLine(SelectedRoot + "\n");
+     }
      string NextRoot = Console.ReadLine();
      Console.Clear(); 
-     Console.WriteLine("What would you like to do with " + NextRoot + "?");
-     Console.WriteLine("A) Access Folder\nB) Delete Folder (Has to be empty)\nC) Go To Parent Folder");
      if (Directory.Exists(NextRoot))
- {
+ {      Console.WriteLine("What would you like to do with " + NextRoot + "?");
+        Console.WriteLine("A) Access Folder\nB) Delete Folder (Has to be empty)\nC) Go To Parent Folder");
         if (Console.ReadKey(true).Key == ConsoleKey.A)
     {
        Console.Clear();
@@ -95,7 +102,7 @@ static void AccessFolder(string RootPath)
        Console.Clear();
         AccessFolder(ParentDic);
     }
-  } else
+  } else if (!Directory.Exists(NextRoot))
     {
       Console.WriteLine(NextRoot + " doesn't exist!"); 
       Console.ReadLine();
